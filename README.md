@@ -29,10 +29,13 @@ pip install -r requirements.txt
 
 ```python
 # Exemplo básico de uso
-from src.algorithms import example_algorithm
+from src.algorithms import factorial, fibonacci
 
-result = example_algorithm()
-print(result)
+# Calcular fatorial
+print(factorial(5))  # Output: 120
+
+# Gerar sequência de Fibonacci
+print([fibonacci(i) for i in range(10)])  # Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 ```
 
 ### Tópicos Abordados

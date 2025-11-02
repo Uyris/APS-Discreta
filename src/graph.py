@@ -99,12 +99,14 @@ class Graph:
         Returns:
             list: Lista de vértices na ordem de visitação
         """
+        from collections import deque
+        
         visited = set([start_vertex])
-        queue = [start_vertex]
+        queue = deque([start_vertex])
         result = []
         
         while queue:
-            vertex = queue.pop(0)
+            vertex = queue.popleft()
             result.append(vertex)
             
             for neighbor, _ in self.get_neighbors(vertex):
