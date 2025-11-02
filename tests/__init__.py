@@ -1,0 +1,3 @@
+"""
+Testes para APS-Discreta
+"""
