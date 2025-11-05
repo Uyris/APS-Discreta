@@ -1,0 +1,147 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+\Large\textbf{APS -- Lógica e Matemática Discreta 2025.2} \\
+\vspace{0.3cm}
+\large Professor: Fillipe Resina \\
+\vspace{0.5cm}
+\textbf{Modelando um Mundo com Lógica de Primeira Ordem: Warcraft III e Expansões} \\
+\vspace{0.5cm}
+\textbf{Integrantes:} Matheus Luciano Alves de Oliveira Silva \\ Yuri Henrique da Cunha Santos
+\end{center}
+
+\section*{1. Objetivo}
+Aplicar os conceitos de Lógica de Primeira Ordem para representar formalmente um cenário fictício, baseado na história de \\textit{Warcraft III: Reign of Chaos} e \\textit{The Frozen Throne}, utilizando predicados, quantificadores e regras de dedução natural. Em seguida, o modelo foi implementado em Prolog para teste de inferências automáticas.
+
+\section*{2. Cenário: O Mundo de Warcraft III}
+O universo de Warcraft apresenta diversos agentes e entidades com relações complexas de poder, corrupção e alianças. Nesta modelagem, consideramos personagens principais: \\textbf{Arthas, Illidan, Thrall, Jaina, Sylvanas, Kel'Thuzad, Mal'Ganis, Archimonde, Lady Vashj} e objetos relevantes: \\textbf{Frostmourne, Frozen Throne, Tome of Power}.\newline
+A narrativa centra-se na corrupção de Arthas, a busca de poder de Illidan e o conflito entre raças (Humanos, Orcs, Elfos Noturnos, Mortos-Vivos e Demônios).
+
+\section*{3. Predicados, Funções e Constantes}
+\subsection*{Predicados}
+\begin{itemize}[leftmargin=1.5cm]
+  \item human(x): x é humano.
+  \item orc(x): x é orc.
+  \item nightelf(x): x é elfo noturno.
+  \item undead(x): x é morto-vivo.
+  \item demon(x): x é demônio.
+  \item hero(x): x é herói.
+  \item king(x): x é rei.
+  \item wields(x,o): x empunha o objeto o.
+  \item corrupted\_by(x,y): x foi corrompido por y.
+  \item killed(x,y): x matou y.
+  \item seeks(x,o): x busca o objeto o.
+  \item commands(x,y): x comanda y.
+  \item ally(x,y): x é aliado de y.
+  \item leader\_of(x,f): x é líder da facção f.
+  \item became(x,t): x tornou-se t (mudança de papel).
+  \item artifact(o): o é artefato.
+\end{itemize}
+
+\subsection*{Constantes}
+\textit{arthas, illidan, thrall, jaina, sylvanas, kelthuzad, malganis, archimonde, frostmourne, frozenthrone, tome\_of\_power, king\_terenas, scourge, nightelves, lich\_king, lich\_figure.}
+
+\section*{4. Fórmulas em Lógica de Primeira Ordem}
+\begin{enumerate}
+  \item human(arthas)
+  \item hero(arthas)
+  \item artifact(frostmourne)
+  \item $\forall x (wields(x, frostmourne) \rightarrow corrupted\_by(x, frostmourne))$
+  \item wields(arthas, frostmourne)
+  \item $\forall x (corrupted\_by(x, frostmourne) \rightarrow became(x, lich\_figure))$
+  \item $\forall x\forall y (killed(x,y) \wedge king(y) \rightarrow traitor(x))$
+  \item king(king\_terenas), killed(arthas, king\_terenas)
+  \item $\forall x (demon(x) \rightarrow \neg hero(x))$
+  \item $\exists x (became(x, lich\_king) \wedge commands(x, undead\_faction))$
+  \item seeks(illidan, tome\_of\_power)
+  \item $\forall x (seeks(x, tome\_of\_power) \wedge artifact(tome\_of\_power) \rightarrow \neg ally(x, nightelves))$
+  \item undead(kelthuzad)
+  \item $leader\_of(arthas, scourge) \rightarrow commands(arthas, scourge)$
+\end{enumerate}
+
+\section*{5. Dedução Natural}
+\subsection*{Dedução A — Arthas torna-se uma figura Lich}
+\textbf{Premissas:}
+\begin{enumerate}[label=(\arabic*)]
+  \item $\forall x (wields(x, frostmourne) \rightarrow corrupted\_by(x, frostmourne))$
+  \item wields(arthas, frostmourne)
+  \item $\forall x (corrupted\_by(x, frostmourne) \rightarrow became(x, lich\_figure))$
+\end{enumerate}
+\textbf{Prova:}
+\begin{enumerate}
+  \item Pela (1), instanciando para Arthas: $wields(arthas, frostmourne) \rightarrow corrupted\_by(arthas, frostmourne)$
+  \item De (2) e (1) por Modus Ponens: $corrupted\_by(arthas, frostmourne)$
+  \item Pela (3), instanciando para Arthas: $corrupted\_by(arthas, frostmourne) \rightarrow became(arthas, lich\_figure)$
+  \item De (2) e (3) por Modus Ponens: $became(arthas, lich\_figure)$
+\end{enumerate}
+\textbf{Conclusão:} Arthas tornou-se uma figura Lich.
+
+\subsection*{Dedução B — Arthas é um traidor}
+\textbf{Premissas:}
+\begin{enumerate}[label=(\arabic*)]
+  \item $\forall x\forall y (killed(x,y) \wedge king(y) \rightarrow traitor(x))$
+  \item killed(arthas, king\_terenas)
+  \item king(king\_terenas)
+\end{enumerate}
+\textbf{Prova:}
+\begin{enumerate}
+  \item Pela (2) e (3): $killed(arthas, king\_terenas) \wedge king(king\_terenas)$
+  \item Pela (1), instanciando Arthas e Terenas: $killed(arthas, king\_terenas) \wedge king(king\_terenas) \rightarrow traitor(arthas)$
+  \item De (1) e (2) por Modus Ponens: $traitor(arthas)$
+\end{enumerate}
+\textbf{Conclusão:} Arthas é um traidor.
+
+\section*{6. Implementação em Prolog}
+\begin{verbatim}
+% war3.pl -- base de conhecimento
+human(arthas).
+hero(arthas).
+king(king_terenas).
+killed(arthas, king_terenas).
+
+human(jaina).
+orc(thrall).
+nightelf(maiev).
+undead(kelthuzad).
+demon(malganis).
+
+artifact(frostmourne).
+artifact(tome_of_power).
+wields(arthas, frostmourne).
+seeks(illidan, tome_of_power).
+
+corrupted_by(X, frostmourne) :- wields(X, frostmourne).
+became(X, lich_figure) :- corrupted_by(X, frostmourne).
+traitor(X) :- killed(X, Y), king(Y).
+leader_of(arthas, scourge).
+commands(X, scourge) :- leader_of(X, scourge).
+became(X, lich_king) :- became(X, lich_figure), leader_of(X, scourge).
+enemy_of(illidan, nightelves) :- seeks(illidan, tome_of_power).
+\end{verbatim}
+
+\section*{7. Consultas e Resultados Esperados}
+\begin{enumerate}
+  \item ?- corrupted\_by(arthas, frostmourne). \textbf{true.}
+  \item ?- became(arthas, lich\_figure). \textbf{true.}
+  \item ?- traitor(arthas). \textbf{true.}
+  \item ?- became(arthas, lich\_king). \textbf{true.}
+  \item ?- enemy\_of(illidan, nightelves). \textbf{true.}
+\end{enumerate}
+
+\section*{8. Conclusão}
+O modelo proposto representa de forma lógica a transição de personagens e eventos principais de Warcraft III. As inferências automáticas comprovam a coerência da base de conhecimento e a aplicação correta da Lógica de Primeira Ordem e do raciocínio dedutivo em Prolog.
+
+\vspace{0.5cm}
+\noindent\textbf{Data de Entrega:} 05/11/2025 \\
+\textbf{Repositório GitHub:} (inserir link na entrega)
+
+\end{document}
