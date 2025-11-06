@@ -6,6 +6,10 @@
 \geometry{margin=2.5cm}
 \usepackage{enumitem}
 \usepackage{hyperref}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{framed}
 
 \begin{document}
 
@@ -85,6 +89,25 @@ A narrativa centra-se na corrupção de Arthas, a busca de poder de Illidan e o 
 \end{enumerate}
 \textbf{Conclusão:} Arthas tornou-se uma figura Lich.
 
+\vspace{0.5cm}
+\noindent\textbf{Figura 1: Representação gráfica da Dedução A}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Passo} & \textbf{Fórmula} & \textbf{Justificativa} \\
+\midrule
+1. & $\forall x (wields(x, frostmourne) \rightarrow corrupted\_by(x, frostmourne))$ & Premissa (P1) \\
+2. & $wields(arthas, frostmourne)$ & Premissa (P2) \\
+3. & $\forall x (corrupted\_by(x, frostmourne) \rightarrow became(x, lich\_figure))$ & Premissa (P3) \\
+4. & $wields(arthas, frostmourne) \rightarrow corrupted\_by(arthas, frostmourne)$ & $\forall$E 1; $x:=arthas$ \\
+5. & $corrupted\_by(arthas, frostmourne)$ & MP 2,4 \\
+6. & $corrupted\_by(arthas, frostmourne) \rightarrow became(arthas, lich\_figure)$ & $\forall$E 3; $x:=arthas$ \\
+7. & $became(arthas, lich\_figure)$ & MP 5,6 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
 \subsection*{Dedução B — Arthas é um traidor}
 \textbf{Premissas:}
 \begin{enumerate}[label=(\arabic*)]
@@ -99,6 +122,24 @@ A narrativa centra-se na corrupção de Arthas, a busca de poder de Illidan e o 
   \item De (1) e (2) por Modus Ponens: $traitor(arthas)$
 \end{enumerate}
 \textbf{Conclusão:} Arthas é um traidor.
+
+\vspace{0.5cm}
+\noindent\textbf{Figura 2: Representação gráfica da Dedução B}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Passo} & \textbf{Fórmula} & \textbf{Justificativa} \\
+\midrule
+1. & $\forall x\forall y (killed(x,y) \wedge king(y) \rightarrow traitor(x))$ & Premissa (P1) \\
+2. & $killed(arthas, king\_terenas)$ & Premissa (P2) \\
+3. & $king(king\_terenas)$ & Premissa (P3) \\
+4. & $killed(arthas, king\_terenas) \wedge king(king\_terenas)$ & $\wedge$I 2,3 \\
+5. & $(killed(arthas, king\_terenas) \wedge king(king\_terenas)) \rightarrow traitor(arthas)$ & $\forall$E 1; $x:=arthas, y:=king\_terenas$ \\
+6. & $traitor(arthas)$ & MP 4,5 \\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \section*{6. Implementação em Prolog}
 \begin{verbatim}
