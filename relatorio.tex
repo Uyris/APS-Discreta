@@ -10,6 +10,7 @@
 \usepackage{booktabs}
 \usepackage{xcolor}
 \usepackage{framed}
+\usepackage{graphicx}
 
 \begin{document}
 
@@ -24,10 +25,10 @@
 \end{center}
 
 \section*{1. Objetivo}
-Aplicar os conceitos de Lógica de Primeira Ordem para representar formalmente um cenário fictício, baseado na história de \\textit{Warcraft III: Reign of Chaos} e \\textit{The Frozen Throne}, utilizando predicados, quantificadores e regras de dedução natural. Em seguida, o modelo foi implementado em Prolog para teste de inferências automáticas.
+Aplicar os conceitos de Lógica de Primeira Ordem para representar formalmente um cenário fictício, baseado na história de {Warcraft III: Reign of Chaos} e {The Frozen Throne}, utilizando predicados, quantificadores e regras de dedução natural. Em seguida, o modelo foi implementado em Prolog para teste de inferências automáticas.
 
 \section*{2. Cenário: O Mundo de Warcraft III}
-O universo de Warcraft apresenta diversos agentes e entidades com relações complexas de poder, corrupção e alianças. Nesta modelagem, consideramos personagens principais: \\textbf{Arthas, Illidan, Thrall, Jaina, Sylvanas, Kel'Thuzad, Mal'Ganis, Archimonde, Lady Vashj} e objetos relevantes: \\textbf{Frostmourne, Frozen Throne, Tome of Power}.\newline
+O universo de Warcraft apresenta diversos agentes e entidades com relações complexas de poder, corrupção e alianças. Nesta modelagem, consideramos personagens principais: {Arthas, Illidan, Thrall, Jaina, Sylvanas, Kel'Thuzad, Mal'Ganis, Archimonde, Lady Vashj} e objetos relevantes: { Frostmourne, Frozen Throne, Tome of Power}.\newline
 A narrativa centra-se na corrupção de Arthas, a busca de poder de Illidan e o conflito entre raças (Humanos, Orcs, Elfos Noturnos, Mortos-Vivos e Demônios).
 
 \section*{3. Predicados, Funções e Constantes}
@@ -93,17 +94,18 @@ A narrativa centra-se na corrupção de Arthas, a busca de poder de Illidan e o 
 \noindent\textbf{Figura 1: Representação gráfica da Dedução A}
 
 \begin{center}
-\begin{tabular}{lll}
+\small
+\begin{tabular}{c>{\raggedright\arraybackslash}p{8cm}>{\raggedright\arraybackslash}p{3cm}}
 \toprule
 \textbf{Passo} & \textbf{Fórmula} & \textbf{Justificativa} \\
 \midrule
-1. & $\forall x (wields(x, frostmourne) \rightarrow corrupted\_by(x, frostmourne))$ & Premissa (P1) \\
-2. & $wields(arthas, frostmourne)$ & Premissa (P2) \\
-3. & $\forall x (corrupted\_by(x, frostmourne) \rightarrow became(x, lich\_figure))$ & Premissa (P3) \\
-4. & $wields(arthas, frostmourne) \rightarrow corrupted\_by(arthas, frostmourne)$ & $\forall$E 1; $x:=arthas$ \\
-5. & $corrupted\_by(arthas, frostmourne)$ & MP 2,4 \\
-6. & $corrupted\_by(arthas, frostmourne) \rightarrow became(arthas, lich\_figure)$ & $\forall$E 3; $x:=arthas$ \\
-7. & $became(arthas, lich\_figure)$ & MP 5,6 \\
+1. & $\forall x (wields(x, frostmourne) \rightarrow corrupted\_by(x, frostmourne))$ & Premissa (P1) \\[0.3cm]
+2. & $wields(arthas, frostmourne)$ & Premissa (P2) \\[0.3cm]
+3. & $\forall x (corrupted\_by(x, frostmourne) \rightarrow became(x, lich\_figure))$ & Premissa (P3) \\[0.3cm]
+4. & $wields(arthas, frostmourne) \rightarrow corrupted\_by(arthas, frostmourne)$ & $\forall$E 1; \newline $x:=arthas$ \\[0.3cm]
+5. & $corrupted\_by(arthas, frostmourne)$ & MP 2,4 \\[0.3cm]
+6. & $corrupted\_by(arthas, frostmourne) \rightarrow became(arthas, lich\_figure)$ & $\forall$E 3; \newline $x:=arthas$ \\[0.3cm]
+7. & $became(arthas, lich\_figure)$ & MP 5,6 \\[0.3cm]
 \bottomrule
 \end{tabular}
 \end{center}
@@ -127,62 +129,40 @@ A narrativa centra-se na corrupção de Arthas, a busca de poder de Illidan e o 
 \noindent\textbf{Figura 2: Representação gráfica da Dedução B}
 
 \begin{center}
-\begin{tabular}{lll}
+\small
+\begin{tabular}{c>{\raggedright\arraybackslash}p{8cm}>{\raggedright\arraybackslash}p{3cm}}
 \toprule
 \textbf{Passo} & \textbf{Fórmula} & \textbf{Justificativa} \\
 \midrule
-1. & $\forall x\forall y (killed(x,y) \wedge king(y) \rightarrow traitor(x))$ & Premissa (P1) \\
-2. & $killed(arthas, king\_terenas)$ & Premissa (P2) \\
-3. & $king(king\_terenas)$ & Premissa (P3) \\
-4. & $killed(arthas, king\_terenas) \wedge king(king\_terenas)$ & $\wedge$I 2,3 \\
-5. & $(killed(arthas, king\_terenas) \wedge king(king\_terenas)) \rightarrow traitor(arthas)$ & $\forall$E 1; $x:=arthas, y:=king\_terenas$ \\
-6. & $traitor(arthas)$ & MP 4,5 \\
+1. & $\forall x\forall y (killed(x,y) \wedge king(y) \rightarrow traitor(x))$ & Premissa (P1) \\[0.3cm]
+2. & $killed(arthas, king\_terenas)$ & Premissa (P2) \\[0.3cm]
+3. & $king(king\_terenas)$ & Premissa (P3) \\[0.3cm]
+4. & $killed(arthas, king\_terenas) \wedge king(king\_terenas)$ & $\wedge$I 2,3 \\[0.3cm]
+5. & $(killed(arthas, king\_terenas) \wedge king(king\_terenas)) \rightarrow$ \newline $traitor(arthas)$ & $\forall$E 1; \newline $x:=arthas$, \newline $y:=king\_terenas$ \\[0.3cm]
+6. & $traitor(arthas)$ & MP 4,5 \\[0.3cm]
 \bottomrule
 \end{tabular}
 \end{center}
 
-\section*{6. Implementação em Prolog}
-\begin{verbatim}
-% war3.pl -- base de conhecimento
-human(arthas).
-hero(arthas).
-king(king_terenas).
-killed(arthas, king_terenas).
+\vspace{0.5cm}
+\noindent\textbf{Figura 3: Captura de tela das consultas em Prolog - Parte 1}
 
-human(jaina).
-orc(thrall).
-nightelf(maiev).
-undead(kelthuzad).
-demon(malganis).
-
-artifact(frostmourne).
-artifact(tome_of_power).
-wields(arthas, frostmourne).
-seeks(illidan, tome_of_power).
-
-corrupted_by(X, frostmourne) :- wields(X, frostmourne).
-became(X, lich_figure) :- corrupted_by(X, frostmourne).
-traitor(X) :- killed(X, Y), king(Y).
-leader_of(arthas, scourge).
-commands(X, scourge) :- leader_of(X, scourge).
-became(X, lich_king) :- became(X, lich_figure), leader_of(X, scourge).
-enemy_of(illidan, nightelves) :- seeks(illidan, tome_of_power).
-\end{verbatim}
-
-\section*{7. Consultas e Resultados Esperados}
-\begin{enumerate}
-  \item ?- corrupted\_by(arthas, frostmourne). \textbf{true.}
-  \item ?- became(arthas, lich\_figure). \textbf{true.}
-  \item ?- traitor(arthas). \textbf{true.}
-  \item ?- became(arthas, lich\_king). \textbf{true.}
-  \item ?- enemy\_of(illidan, nightelves). \textbf{true.}
-\end{enumerate}
-
-\section*{8. Conclusão}
-O modelo proposto representa de forma lógica a transição de personagens e eventos principais de Warcraft III. As inferências automáticas comprovam a coerência da base de conhecimento e a aplicação correta da Lógica de Primeira Ordem e do raciocínio dedutivo em Prolog.
+\begin{center}
+\includegraphics[width=0.85\textwidth,keepaspectratio]{consulta1.jpeg}
+\end{center}
 
 \vspace{0.5cm}
-\noindent\textbf{Data de Entrega:} 05/11/2025 \\
-\textbf{Repositório GitHub:} (inserir link na entrega)
+\noindent\textbf{Figura 4: Captura de tela das consultas em Prolog - Parte 2}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth,keepaspectratio]{consulta2.jpeg}
+\end{center}
+
+\vspace{0.5cm}
+\noindent\textbf{Figura 5: Captura de tela das consultas em Prolog - Parte 3}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth,keepaspectratio]{consulta3.jpeg}
+\end{center}
 
 \end{document}
